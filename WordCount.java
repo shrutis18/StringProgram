@@ -12,28 +12,16 @@ public class WordCount {
     private int[] frequency;
 
                 public  void wordCount(String fileName) throws IOException {
-
-
-                    String line = null;
-
-                    String key = null;
+                    String singleLine = null;
+                    String fullDataFromFile = null;
                         int flag = 0;
-
-
                         FileReader file = new FileReader(fileName);
-
                         BufferedReader reader = new BufferedReader(file);
-
-
                         try {
-
-
-                            line = reader.readLine();
-
+                            singleLine = reader.readLine();
                         } catch (FileNotFoundException e) {
                             flag = 1;
                             e.printStackTrace();
-
                         }
                         /*System.out.println(flag);
                         if (flag == 1) {
@@ -45,16 +33,11 @@ public class WordCount {
 
                         }*/
 
-
-
-                    while (line != null) {
-                        key = key + line;
-                        line = reader.readLine();
+                    while (singleLine != null) {
+                        fullDataFromFile = fullDataFromFile + singleLine;
+                        singleLine = reader.readLine();
                     }
-
-                    String[] splitStr = key.split(" ");
-
-
+                    String[] splitStr = fullDataFromFile.split(" ");
                     int counter = 0;
                      int storefrequency=0;
                     List<String> list = new ArrayList<>();
