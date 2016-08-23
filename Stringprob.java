@@ -10,13 +10,18 @@ class Stringprob {
 
 
     public static void main(String args[]) throws IOException {
-        String filename = getFileName();
-        int cutoff = getThreshold();
+        try {
+            String filename = getFileName();
+            int cutoff = getThreshold();
 
-        WordCount sb = new WordCount();
-        sb.wordCount(filename);
-        sb.display(cutoff);
+            WordCount sb = new WordCount();
+            sb.wordCount(filename);
+            sb.display(cutoff);
+        }
+        catch(NumberFormatException e){
+            System.out.println(e.getMessage());
 
+        }
     }
 
     public static String getFileName() throws IOException {
@@ -30,7 +35,15 @@ class Stringprob {
             file = new File(fileName);
             if (!file.exists() || fileName.isEmpty()) {
                 System.out.println("Enter A Valid File Name:");
-            } else break;
+
+            }
+            else if(file.length()<=0)
+                System.out.println("file is empty");
+            else if(file.isDirectory())
+            {
+                System.out.println("Its a directory not a file,Please provide a filename");
+            }
+            else break;
         }
         assert (fileName != null) : "File Name is null";
         assert (fileName.trim().isEmpty() != true) : "File name is empty";
@@ -41,17 +54,18 @@ class Stringprob {
 
 
         Scanner reader = new Scanner(System.in);
-           int threshold;
+           int threshold=0;
 
         boolean flag = true;
                   while(true) {
                       System.out.println("please enter threshold");
-                       threshold = reader.nextInt();
-                    int  check = Integer.valueOf(threshold);
+
+
 
                       try {
 
-
+                          threshold = Integer.parseInt(reader.next());
+                          int  check = threshold;
                           if (check <= 0) {
 
                               System.out.println("input is not a positive Integer ");
@@ -63,8 +77,7 @@ class Stringprob {
                           }
                       }
                       catch(NumberFormatException e){
-                              System.out.println("input is not a positive Integer ");
-                              System.out.println("Please enter a positive integer seed value: ");
+                            throw new NumberFormatException("Input must be an integer");
 
                           }
                           return threshold;
